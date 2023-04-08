@@ -1,0 +1,7 @@
+organization=org-virgilio-ingsoft
+projectKey=Org-Virgilio-IngSoft_IngSoftwareBK
+serverUrl=https://sonarcloud.io
+serverVersion=8.0.0.39825
+dashboardUrl=https://sonarcloud.io/dashboard?id=Org-Virgilio-IngSoft_IngSoftwareBK
+ceTaskId=AYdhEYKfCLySs9f7PeZZ
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AYdhEYKfCLySs9f7PeZZ
