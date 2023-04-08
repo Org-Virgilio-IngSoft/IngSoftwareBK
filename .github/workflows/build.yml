@@ -6,7 +6,7 @@ on:
       - main
   #pull_request:                                commented by me
       #types: [opened, synchronize, reopened]   commented by me
-name: My Workflow
+name: My Workflow BK
 jobs:
   sonarcloud:
     runs-on: ubuntu-latest
