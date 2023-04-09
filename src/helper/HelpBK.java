@@ -11,7 +11,7 @@ import java.util.Properties;
  * @author Virgilio
  *
  */
-public class Help {
+public class HelpBK {
 
 	public String getMyProperty(String propertyName) throws IOException {
 		String config="config";

@@ -14,7 +14,7 @@ import java.util.Properties;
  * @author Virgilio
  *
  */
-public class DB {
+public class DBaseBK {
 
 	private String config="config";
 	private String urlDBbookeeper="jdbc:postgresql://localhost:5432/TickectBugDB";

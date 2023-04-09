@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import helper.Help;
+import helper.HelpBK;
 
 /**
  * @author Virgilio
@@ -20,8 +20,8 @@ public class ClassToExecuteBK {
 	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws IOException {
-		Linkage link = new Linkage();
-		Help help = new Help();
+		LinkageBK link = new LinkageBK();
+		HelpBK help = new HelpBK();
 		
 		
 		String pathLogBK = help.getMyProperty("pathLogFileLinkage");

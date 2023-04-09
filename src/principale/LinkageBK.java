@@ -11,11 +11,11 @@ import java.io.IOException;
  * @author Virgilio
  *
  */
-public class Linkage {
+public class LinkageBK {
 
 	
 	
-public double calculateLinkageBK(String pathLogGitFile) throws IOException {
+    public double calculateLinkageBK(String pathLogGitFile) throws IOException {
 		
 		double count=0.0;
 		double countTickets=0.0;
