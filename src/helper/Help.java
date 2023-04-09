@@ -15,11 +15,14 @@ public class Help {
 
 	public String getMyProperty(String propertyName) throws IOException {
 		String config="config";
-		FileReader fr = new FileReader(config);
-    	var property = new Properties();
-		property.load(fr);
 		
-		return property.getProperty("pathLogFileLinkage");
-	}
+		try(FileReader fr = new FileReader(config)){
+			var property = new Properties();
+			property.load(fr);
+			
+			return property.getProperty(propertyName);
+		}//try
+		  	
+	}//fine metodo
 	
 }

@@ -29,7 +29,7 @@ public class ClassToExecuteBK {
 		double l = link.calculateLinkageBK(pathLogBK);
 		
 		Logger logger=Logger.getLogger("MyLogger");
-		logger.log(Level.INFO ,"LINKAGE BOOKKEEPER: "+ l);
+		logger.log(Level.INFO ,"LINKAGE BOOKKEEPER: {0}", l);
 		
 		
 	}//fine main
