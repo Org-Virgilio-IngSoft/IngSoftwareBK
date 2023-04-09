@@ -3,10 +3,11 @@
  */
 package principale;
 
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.Properties;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import helper.Help;
 
 /**
  * @author Virgilio
@@ -20,20 +21,17 @@ public class ClassToExecuteBK {
 	 */
 	public static void main(String[] args) throws IOException {
 		Linkage link = new Linkage();
+		Help help = new Help();
 		
-		String config="config";
-		FileReader fr = new FileReader(config);
-    	var property = new Properties();
-		property.load(fr);
 		
-		String pathLogBK = property.getProperty("pathLogFileLinkage");
+		String pathLogBK = help.getMyProperty("pathLogFileLinkage");
 			
 		double l = link.calculateLinkageBK(pathLogBK);
 		
-		Logger log=Logger.getLogger("MyLogger");
-		log.info("LINKAGE BOOKKEEPER: "+ l);
+		Logger logger=Logger.getLogger("MyLogger");
+		logger.log(Level.INFO ,"LINKAGE BOOKKEEPER: "+ l);
 		
 		
-	}
+	}//fine main
 
 }
