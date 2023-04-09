@@ -3,7 +3,10 @@
  */
 package principale;
 
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.Properties;
+import java.util.logging.Logger;
 
 /**
  * @author Virgilio
@@ -18,10 +21,18 @@ public class ClassToExecuteBK {
 	public static void main(String[] args) throws IOException {
 		Linkage link = new Linkage();
 		
-		String pathBK = "D:\\Libri\\Universita\\ProgettoFalessi\\BookkeeperRepo\\gitLogLinkage.txt";
+		String config="config";
+		FileReader fr = new FileReader(config);
+    	var property = new Properties();
+		property.load(fr);
+		
+		String pathLogBK = property.getProperty("pathLogFileLinkage");
 			
-		double l = link.CalculateLinkageBK(pathBK);
-		System.out.println("LINKAGE BOOKKEEPER: " + l);
+		double l = link.calculateLinkageBK(pathLogBK);
+		
+		Logger log=Logger.getLogger("MyLogger");
+		log.info("LINKAGE BOOKKEEPER: "+ l);
+		
 		
 	}
 

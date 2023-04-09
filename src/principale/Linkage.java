@@ -15,16 +15,18 @@ public class Linkage {
 
 	
 	
-public double CalculateLinkageBK(String pathLogGitFile) throws IOException {
+public double calculateLinkageBK(String pathLogGitFile) throws IOException {
 		
 		double count=0.0;
 		double countTickets=0.0;
 		FileReader fr=new FileReader(pathLogGitFile);
-		BufferedReader br=new BufferedReader(fr);
+		
 		
 		String lineFile;
 		
-		 while( (lineFile=br.readLine() ) !=null ) {
+		try( BufferedReader br=new BufferedReader(fr) ){
+			
+            while( (lineFile=br.readLine() ) !=null ) {
 				
 				if(lineFile.startsWith("commit") ) {
 					count=count+1;
@@ -39,9 +41,16 @@ public double CalculateLinkageBK(String pathLogGitFile) throws IOException {
 					
 				}
 		 }//while
+		 				 
+		 if(count==0.0) {
+			return -1; 
+		 }
 		 
-		 br.close();
 		 return (countTickets/count) ;
-	}
+			
+		}//try
+		
+		 
+	}//fine metodo
 	
 }
