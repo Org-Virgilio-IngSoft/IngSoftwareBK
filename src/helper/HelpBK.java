@@ -13,7 +13,7 @@ import java.util.Properties;
  */
 public class HelpBK {
 
-	public String getMyProperty(String propertyName) throws IOException {
+	public static String getMyProperty(String propertyName) throws IOException {
 		String config="config";
 		
 		try(FileReader fr = new FileReader(config)){

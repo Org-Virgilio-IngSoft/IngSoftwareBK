@@ -13,8 +13,7 @@ import java.io.IOException;
  */
 public class LinkageBK {
 
-	
-	
+		
     public double calculateLinkageBK(String pathLogGitFile) throws IOException {
 		
 		double count=0.0;
