@@ -12,7 +12,7 @@ import database.DBaseBK;
 public class AutoriBK {
 
 	
-	public void getNameAutor_Commit_DateCommit_from_GitLog(String pathLogGitFile) throws SQLException, IOException {
+	public void getNameAutorCommitDateCommitfromGitLog(String pathLogGitFile) throws SQLException, IOException {
 		String commit="/";
 		String date="/";
 		String autore="/";	

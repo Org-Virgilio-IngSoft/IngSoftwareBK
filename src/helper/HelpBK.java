@@ -11,8 +11,10 @@ import java.util.Properties;
  * @author Virgilio
  *
  */
-public class HelpBK {
-
+public class  HelpBK {
+ 
+	private static HelpBK INSTANCE;
+	
 	public static String getMyProperty(String propertyName) throws IOException {
 		String config="config";
 		
@@ -24,5 +26,18 @@ public class HelpBK {
 		}//try
 		  	
 	}//fine metodo
+	
+	 private HelpBK() {
+		 //private constructor
+	 }
+
+	 
+	 public static HelpBK getInstance() {
+	     if (INSTANCE == null) {
+	         INSTANCE = new HelpBK();
+	     }
+
+	     return INSTANCE;
+	}//fine 
 	
 }

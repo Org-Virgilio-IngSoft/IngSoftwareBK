@@ -12,7 +12,7 @@ public class SnoringReleasesBK {
 		int count = 0;
     	int i = 0;
     	String lineFile="";  
-    	String split[];
+    	String[] split;
 		
 		try(FileReader fr=new FileReader(pathInfoFileProject);
     	    BufferedReader br=new BufferedReader(fr); ){
@@ -25,22 +25,26 @@ public class SnoringReleasesBK {
 		   }//while
 			
 		}//try 
-		   	    	    	      	
-       split=lineFile.split(",");	
+		 
+	   if(lineFile!=null) {
+		   split=lineFile.split(","); 
+		 //this returns the date
+	       return split[3].substring(0, 10) ;
+	   }
+       	
+       return null;
        
-       //this returns the date
-       return split[3].substring(0, 10) ;
     
 }//fine metodo
     public int howManyReleasesThereAre(String pathInfoFileProject) throws IOException {
     	
     	int count = 0;
-    	
+    	String lineFile="";
     	try(FileReader fr=new FileReader(pathInfoFileProject);
             BufferedReader br=new BufferedReader(fr); ){
     		
-    		while( (br.readLine() ) !=null ) {
-				
+    		while( (lineFile=br.readLine() ) !=null ) {
+				lineFile = lineFile.concat(" ");
       			count=count+1; 					  				
             }//while
     		
