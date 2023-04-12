@@ -21,19 +21,18 @@ public class ClassToExecuteBK {
 	 */
 	public static void main(String[] args) throws IOException {
 						
-		String pathLogBK = HelpBK.getMyProperty("pathLogFileLinkage");
-			
+		String pathLogBK = HelpBK.getMyProperty("pathLogFileLinkage");			
 		double linkage = LinkageBK.calculateLinkageBK(pathLogBK);
 		
 		Logger logger=Logger.getLogger("MyLogger");
 		logger.log(Level.INFO ,"LINKAGE BOOKKEEPER: {0}", linkage);
-				
+		
+		
+		
+		
 		
 		logger.log(Level.INFO ,"FINE ClassToExecuteBK!!");
-		
-		
-		
-		
+			
 	}//fine main
 
 }

@@ -49,7 +49,7 @@ public class AutoriBK {
       				
       			if(count==3) {
     					
-    					String queryInsert="INSERT INTO \"AutoriBK\" (  \"NameAuthor\" , \"Commit\" , \"DataCommit\")  "+
+    					String queryInsert="INSERT INTO \"AutoriBK\" (  \"NameAuthor\" , \"Commit\" , \"DateCommit\")  "+
     							"VALUES ( ? , ?, ? )";
     					try(PreparedStatement statUpdate=con.prepareStatement(queryInsert) ){
     					    statUpdate.setString(1, autore);
