@@ -51,10 +51,13 @@ public class CommitTicketBK {
 				if(lineFile.startsWith("    BOOKKEEPER-") ||  lineFile.startsWith("    [BOOKKEEPER-") ) {
 					ticket=HelpBK.projectStringTicket(lineFile);
 					String queryInsert="INSERT INTO \"CommitTicketsBK\" ( \"Commit\" ,\"TicketID\" ,\"Date\")  "+
-							"VALUES ( '"+commit+"' ,'"+ticket+"','"+date+"' )";
+							"VALUES ( ? , ?, ? )";
 					
 					try(PreparedStatement statUpdate=con.prepareStatement(queryInsert) ){
-					statUpdate.executeUpdate();
+						statUpdate.setString(1, commit);
+					    statUpdate.setString(2, ticket);
+					    statUpdate.setString(3, date);
+						statUpdate.executeUpdate();
 					}
 				}								
 					
