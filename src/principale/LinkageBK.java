@@ -14,13 +14,12 @@ import java.io.IOException;
 public class LinkageBK {
 
 		
-    public double calculateLinkageBK(String pathLogGitFile) throws IOException {
+    public static double calculateLinkageBK(String pathLogGitFile) throws IOException {
 		
-		double count=0.0;
-		double countTickets=0.0;
+		int count=0;
+		int countTickets=0;
 		FileReader fr=new FileReader(pathLogGitFile);
-		
-		
+			
 		String lineFile;
 		
 		try( BufferedReader br=new BufferedReader(fr) ){
@@ -41,7 +40,7 @@ public class LinkageBK {
 				}
 		 }//while
 		 				 
-		 if(count==0.0) {
+		 if(count==0) {
 			return -1; 
 		 }
 		 
