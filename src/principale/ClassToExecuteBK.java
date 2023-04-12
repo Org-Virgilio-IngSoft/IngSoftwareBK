@@ -28,12 +28,7 @@ public class ClassToExecuteBK {
 		
 		Logger logger=Logger.getLogger("MyLogger");
 		logger.log(Level.INFO ,"LINKAGE BOOKKEEPER: {0}", l);
-		
-		SnoringReleasesBK snor = new SnoringReleasesBK();
-		String pathInfoFileProject = HelpBK.getMyProperty("pathInfoFileProject");
-		String date = snor.getDateLastReleaseNotSnoring(pathInfoFileProject);
-		
-		logger.log(Level.INFO ,"BOOKKEEPER: LAST DATE TO CONSIDER {0}", date);
+				
 		
 		logger.log(Level.INFO ,"FINE ClassToExecuteBK!!");
 		

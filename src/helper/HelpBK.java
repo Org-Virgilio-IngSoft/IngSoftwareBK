@@ -13,7 +13,6 @@ import java.util.Properties;
  */
 public class  HelpBK {
  
-	private static HelpBK instance;
 	
 	public static String getMyProperty(String propertyName) throws IOException {
 		String config="configBK";
@@ -66,18 +65,5 @@ public class  HelpBK {
 	}//fine metodo
 		  	
 	
-     //////////////////////////////////////////////	
-	 private HelpBK() {
-		 //private constructor
-	 }
-
-	 
-	 public static HelpBK getInstance() {
-	     if (instance == null) {
-	    	 instance = new HelpBK();
-	     }
-
-	     return instance;
-	} 
 	
 }

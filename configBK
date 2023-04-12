@@ -1,4 +1,8 @@
 userid=postgres
 password=A6YhbvtE82
+
 pathLogFileLinkage=D:\\Libri\\Universita\\ProgettoFalessi\\BookkeeperRepo\\gitLogLinkage.txt
+pathLogFileNOsnoring=D:\\Libri\\Universita\\ProgettoFalessi\\BookkeeperRepo\\gitLogNOsnoring.txt
 pathInfoFileProject=D:\\Libri\\Universita\\ProgettoFalessi\\BookkeeperRepo\\BOOKKEEPERVersionInfo.csv
+
+dateNOsnoring=2014-06-27
