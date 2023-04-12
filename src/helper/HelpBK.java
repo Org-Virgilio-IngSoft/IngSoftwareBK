@@ -13,10 +13,10 @@ import java.util.Properties;
  */
 public class  HelpBK {
  
-	private static HelpBK INSTANCE;
+	private static HelpBK instance;
 	
 	public static String getMyProperty(String propertyName) throws IOException {
-		String config="config";
+		String config="configBK";
 		
 		try(FileReader fr = new FileReader(config)){
 			var property = new Properties();
@@ -26,18 +26,58 @@ public class  HelpBK {
 		}//try
 		  	
 	}//fine metodo
+
+    //metodo per gestire la parte numerica variabile di un perticolare ticket bug
+    public static String projectStringTicket(String str) {
+		String id; 
+		int lungStr;
+		String projectName="ZOOKEEPER-"; 
+		int lungProjectName=0;
+		int i=0;
+		int indice;
+		int indice2;
+		int diff=0;
+							
+		lungStr=str.length();
+		lungProjectName=projectName.length();
+		
+		indice=str.indexOf(projectName);		
+		indice2=indice+lungProjectName;
+			
+		if(indice2>lungStr-4) {
+				
+			diff=lungStr-indice2;
+			id=str.substring(indice2, indice2+diff);
+			return projectName+id;
+		}
+		else {
+							
+		    id=str.substring(indice2, indice2+4);			
+		}
+			
+		for( i=0;i<4;i++) {
+			if(!Character.isDigit(id.charAt(i) ) ) {
+				break;
+			}
+		}
+			
+		return projectName+id.substring(0, i);
+					
+	}//fine metodo
+		  	
 	
+     //////////////////////////////////////////////	
 	 private HelpBK() {
 		 //private constructor
 	 }
 
 	 
 	 public static HelpBK getInstance() {
-	     if (INSTANCE == null) {
-	         INSTANCE = new HelpBK();
+	     if (instance == null) {
+	    	 instance = new HelpBK();
 	     }
 
-	     return INSTANCE;
-	}//fine 
+	     return instance;
+	} 
 	
 }
