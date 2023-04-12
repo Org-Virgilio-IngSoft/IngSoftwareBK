@@ -44,11 +44,14 @@ public class LinkageBK {
 			return -1; 
 		 }
 		 
-		 return (countTickets/count) ;
-			
+		 return (countTickets/count) ;		
 		}//try
-		
-		 
+				 
 	}//fine metodo
 	
+    
+    private LinkageBK() {
+    	
+    }
+    
 }

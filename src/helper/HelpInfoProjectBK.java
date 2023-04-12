@@ -7,8 +7,7 @@ import java.util.List;
 
 public class HelpInfoProjectBK {
 
-	
-	
+		
     public static String[] getVersions(String projectInfo) throws IOException {
     	int lung=0; 
     	String[] info; 
@@ -44,5 +43,11 @@ public class HelpInfoProjectBK {
 		
 		return datesVersions;
 	}//fine metodo
-	
+
+    
+    
+    private HelpInfoProjectBK(){
+    	
+    }
+    
 }
