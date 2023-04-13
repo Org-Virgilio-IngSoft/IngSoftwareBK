@@ -20,9 +20,8 @@ public class AutoriBK {
 		String lineFile;
 		
 		Connection con;		
-        DBaseBK db=new DBaseBK();
         
-        con =db.connectToDBtickectBugBookkeeper();
+        con =DBaseBK.connectToDBtickectBugBookkeeper();
         
         try (
         	FileReader fr=new FileReader(pathLogGitFile);

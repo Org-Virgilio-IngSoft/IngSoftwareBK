@@ -24,10 +24,9 @@ public class CommitTicketBK {
 		var ticket="";
 		String lineFile;		
 		
-		Connection con;		
-        DBaseBK db=new DBaseBK();
+		Connection con;		     
         
-       con =db.connectToDBtickectBugBookkeeper();
+       con =DBaseBK.connectToDBtickectBugBookkeeper();
         
            
 		try (

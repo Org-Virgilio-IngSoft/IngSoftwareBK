@@ -16,10 +16,10 @@ import helper.HelpBK;
  */
 public class DBaseBK {
 
-	private String urlDBbookeeper="jdbc:postgresql://localhost:5432/TicketBugDB_BOOK";
+	private static String urlDBbookeeper="jdbc:postgresql://localhost:5432/TicketBugDB_BOOK";
 			
 	//metodo per la connessione verso il database con i dati di Bookkeeper
-		public Connection  connectToDBtickectBugBookkeeper() throws SQLException, IOException {
+		public static Connection  connectToDBtickectBugBookkeeper() throws SQLException, IOException {
 			String user;
 			String password;
 			

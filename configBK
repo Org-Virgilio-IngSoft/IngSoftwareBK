@@ -5,5 +5,6 @@ pathRepoBookkeeper=D:\\Libri\\Universita\\ProgettoFalessi\\BookkeeperRepo\\bookk
 pathLogFileLinkage=D:\\Libri\\Universita\\ProgettoFalessi\\BookkeeperRepo\\gitLogLinkage.txt
 pathLogFileNOsnoring=D:\\Libri\\Universita\\ProgettoFalessi\\BookkeeperRepo\\gitLogNOsnoring.txt
 pathInfoFileProject=D:\\Libri\\Universita\\ProgettoFalessi\\BookkeeperRepo\\BOOKKEEPERVersionInfo.csv
+pathFileTicketsWithAffectedVersions=D:\\Libri\\Universita\\ProgettoFalessi\\BookkeeperRepo\\TicketsIDwithAffectedVersionBK.csv
 
 dateNOsnoring=2014-06-27
