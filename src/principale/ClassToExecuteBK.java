@@ -32,13 +32,14 @@ public class ClassToExecuteBK {
 			
 		logger.log(Level.INFO ,"LINKAGE BOOKKEEPER: {0}", linkage);
 		
+		ReleasesBK release = new ReleasesBK();
 		String pathFileTicketsWithAffectedVersions = HelpBK.getMyProperty("pathFileTicketsWithAffectedVersions");
 		String pathTicketsIDwithAffectedVersionAndIDversionBK = HelpBK.getMyProperty("pathTicketsIDwithAffectedVersionAndIDversionBK");
-		ReleasesBK.findAffectedVersionsIndex(pathFileTicketsWithAffectedVersions);
-        ReleasesBK.findInjectedVersions(pathTicketsIDwithAffectedVersionAndIDversionBK);
+		release.findAffectedVersionsIndex(pathFileTicketsWithAffectedVersions);
+		release.findInjectedVersions(pathTicketsIDwithAffectedVersionAndIDversionBK);
 		
         String pathTicketsBugWithFVOVdatesBK = HelpBK.getMyProperty("pathTicketsBugWithFVOVdates");
-		ReleasesBK.findFixVersionsOpenVersionsIndex(pathTicketsBugWithFVOVdatesBK);
+        release.findFixVersionsOpenVersionsIndex(pathTicketsBugWithFVOVdatesBK);
 		
 		ProportionBK proportion = new ProportionBK();		
 		proportion.calcolaProportionTicketsWithIV();

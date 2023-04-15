@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Properties;
 
@@ -99,9 +100,22 @@ public class  HelpBK {
 		}
 		
 		return i;
-	}
+	}//fine metodo
 
-    
+public static String[] getRidOfEmptyString(String[] array) {
+		
+		int i = 0;
+		int lungArray = array.length;		
+		
+		for (i = 0; i < lungArray; i++) {
+			if( array[i].isEmpty() ) {
+				break;
+			}			
+		} 
+				
+		return Arrays.copyOf(array,i);
+		
+	}//fine metodo
         
 	private HelpBK() {
 		
