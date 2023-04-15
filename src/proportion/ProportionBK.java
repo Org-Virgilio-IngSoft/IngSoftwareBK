@@ -30,8 +30,8 @@ public class ProportionBK {
 		  int iv=0;
 		  String bugID;
 		  
-		  List<Double> pValues = new ArrayList<Double>();
-		  List<String> ticketsBugID = new ArrayList<String>();
+		  List<Double> pValues = new ArrayList<>();
+		  List<String> ticketsBugID = new ArrayList<>();
 		  
 		  ResultSet rsTicketsWITHInjectedVersion;
 		  Connection con;			        
@@ -66,7 +66,7 @@ public class ProportionBK {
 	    
 	      String query="UPDATE \"TicketWithInjectedVersionBK\""
 	      		     + "SET   ( \"P\" = ? ) "+
-					   "WHERE \"TicketBugID\" = ?";
+					   "WHERE \"TicketBugID\"=?";
 			  try(PreparedStatement statUpdate=con.prepareStatement(query) ){
 	    	
 			   for (int j = 0; j <  ticketsBugID.size(); j++) {
@@ -78,9 +78,9 @@ public class ProportionBK {
 			   			   
 		    }//try 
 			
-		 String query2="UPDATE \"Ticket_FV_OV_P_IV_BK\""
-		      		 + "SET   ( \"P\" = ? ) "+
-					   "WHERE \"TicketBugID\" = ?";
+		 String query2="UPDATE  \"Ticket_FV_OV_P_IV_BK\""
+		      		 + "SET     ( \"P\" = ? ) "+
+					   "WHERE   \"TicketBugID\"  =?";
 		 try(PreparedStatement statUpdate=con.prepareStatement(query2) ){
 		    	
 			   for (int k = 0; k <  ticketsBugID.size(); k++) {
@@ -99,7 +99,7 @@ public class ProportionBK {
 	  public double calculatePmedio() throws SQLException, IOException {
 		  
 		  double p;
-		  List<Double> pValues = new ArrayList<Double>();
+		  List<Double> pValues = new ArrayList<>();
 		  ResultSet resultP;
 		  
 		  Connection con;			        
@@ -134,9 +134,9 @@ public class ProportionBK {
 		  int iv=0;
 		  String dateIV="";
 		  	
-		  List<String> listSQLbugID= new ArrayList<String>();
-	      List<Integer> listSQLiv= new ArrayList<Integer>();
-	      List<String> listSQLdatesIV= new ArrayList<String>();
+		  List<String> listSQLbugID= new ArrayList<>();
+	      List<Integer> listSQLiv= new ArrayList<>();
+	      List<String> listSQLdatesIV= new ArrayList<>();
 	  
 	      
 		  ResultSet rsTicketsNOinjectedVersion;
@@ -174,7 +174,7 @@ public class ProportionBK {
 	      //Execute query update sql
 	      String queryUpdate="UPDATE \"Ticket_FV_OV_P_IV_BK\"  "
 	      		     + "SET ( \"P\" = ?, \"IV\" = ?, \"DateInjectedVersion\" = ? )   "+
-					   "WHERE \"TicketBugID\" = ?";
+					   "WHERE \"TicketBugID\" =?  ";
 			  try(PreparedStatement statUpdate=con.prepareStatement(queryUpdate) ){
 	    	
 			   for (int j = 0; j <  listSQLbugID.size(); j++) {

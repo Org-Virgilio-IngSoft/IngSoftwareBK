@@ -29,6 +29,8 @@ public class DBaseBK {
 			return DriverManager.getConnection(urlDBbookeeper,user,password);
 		}
 		
-		
+		private DBaseBK() {
+			
+		}
 	
 }
