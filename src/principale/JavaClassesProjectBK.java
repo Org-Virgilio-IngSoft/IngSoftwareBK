@@ -15,13 +15,13 @@ import database.DBaseBK;
 import helper.HelpBK;
 import helper.HelpInfoProjectBK;
 
-public class JavaClassesProjectBK {
+public class JavaClassesProjectBK { 
 
 	//metodo per associare una versione ad una classe java
 		public void createVersionJavaClassPairs(String fileLogGit,String projectInfo) throws IOException, ParseException, SQLException, InterruptedException{
 						 
 			String line;		 	
-			String version;
+			int version;
 			String commit="";
 			String dataCommit="/";
 			List<String> nameFiles; 
@@ -32,11 +32,11 @@ public class JavaClassesProjectBK {
 			String queryInsert;			
 					
 			String[] datesVersions;
-			String[] versions;
+			int[] versions;
 			
 			con=DBaseBK.connectToDBtickectBugBookkeeper();
 				
-			versions=HelpInfoProjectBK.getVersions(projectInfo);
+			versions=HelpInfoProjectBK.getVersionsIndex(projectInfo);
 			datesVersions = HelpInfoProjectBK.getDatesOfVersions(projectInfo);
 		
 					
@@ -74,7 +74,7 @@ public class JavaClassesProjectBK {
 							statUpdate.setString(1, nameFiles.get(i) );
 	    					statUpdate.setString(2, commit);
 	    			        statUpdate.setString(3, dataCommit);
-	    			        statUpdate.setString(4, version);
+	    			        statUpdate.setInt(4, version);
 						    statUpdate.executeUpdate();
 						}//try interno
 						

@@ -19,8 +19,7 @@ public class AutoriBK {
 		int count=0;
 		String lineFile;
 		
-		Connection con;		
-        
+		Connection con;		       
         con =DBaseBK.connectToDBtickectBugBookkeeper();
         
         try (

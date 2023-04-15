@@ -22,7 +22,7 @@ public class  HelpBK {
 		
 		try(FileReader fr = new FileReader(config)){
 			Properties property = new Properties();
-			property.load(fr);
+			property.load(fr); 
 			
 			return property.getProperty(propertyName);
 		}//try
@@ -72,16 +72,16 @@ public class  HelpBK {
     public static int dateBeforeDate(String myDate, String[] dates) throws ParseException {
 		
 		int lung; 
-		var i=0;
+		int i=1;
 		
 		lung=dates.length;
 		
-		var sdf = new SimpleDateFormat("yyyy-MM-dd");	
-		var inputDate=sdf.parse(myDate);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");	
+		Date inputDate=sdf.parse(myDate);
 		Date date;
 		
 		
-		for( i=0;i<lung;i++) {
+		for( i=1;i<lung;i++) {
 			date=sdf.parse( dates[i] );
 			
 			if(inputDate.after(date)) {
@@ -93,15 +93,16 @@ public class  HelpBK {
 			}
 		}//for
 					
-		if(i==0){
-		  i=0;
+		if(i==1){
+		  i=1;
 		  return i;
 		}
 		
-		return i-1;
+		return i;
 	}
 
     
+        
 	private HelpBK() {
 		
 	}
