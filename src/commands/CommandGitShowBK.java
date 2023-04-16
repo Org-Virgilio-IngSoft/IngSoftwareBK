@@ -26,7 +26,7 @@ public class CommandGitShowBK {
 	    pb.command("git", "--no-pager", "show",commit,"--numstat");
 	    pb.redirectErrorStream(true);
 		
-		var process = pb.start();
+		Process process = pb.start();
 					
 		try(InputStream isOK = process.getInputStream();		
 			InputStreamReader isr = new InputStreamReader( isOK );		

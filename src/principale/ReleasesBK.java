@@ -27,7 +27,7 @@ import helper.HelpInfoProjectBK;
  */
 public class ReleasesBK {
      
-	private final String  pathInfoFileProject="pathInfoFileProject";
+	private static final String INFOFILEPROJECT="pathInfoFileProject";
 		
 	public void findAffectedVersionsIndex(String pathFileWithKnownAffectedVersions) throws  IOException {
 		
@@ -39,7 +39,7 @@ public class ReleasesBK {
 		
         String[] namesOfAllVersions;
 		
-		String pathFileInfoProject = HelpBK.getMyProperty(pathInfoFileProject);
+		String pathFileInfoProject = HelpBK.getMyProperty(INFOFILEPROJECT);
 		String pathAffectedVersionAndIDversion = HelpBK.getMyProperty("pathTicketsIDwithAffectedVersionAndIDversionBK");
 		
 		namesOfAllVersions=HelpInfoProjectBK.getNamesOfVersions(pathFileInfoProject);		
@@ -90,7 +90,7 @@ public class ReleasesBK {
         Connection con;		       
         con =DBaseBK.connectToDBtickectBugBookkeeper();
         
-        String pathFileProject = HelpBK.getMyProperty(pathInfoFileProject);
+        String pathFileProject = HelpBK.getMyProperty(INFOFILEPROJECT);
         String[] datesAllVersions = HelpInfoProjectBK.getDatesOfVersions(pathFileProject);
         
         
@@ -172,7 +172,7 @@ public class ReleasesBK {
 	     List<String> listSQLdatesopenV= new ArrayList<>();
 	     List<String> ticketsBugID= new ArrayList<>();  
 			     
-		String pathFileInfoProject= HelpBK.getMyProperty(pathInfoFileProject);				
+		String pathFileInfoProject= HelpBK.getMyProperty(INFOFILEPROJECT);				
 	    datesAllVersions = HelpInfoProjectBK.getDatesOfVersions(pathFileInfoProject);		
 		
 	    Connection con;		       

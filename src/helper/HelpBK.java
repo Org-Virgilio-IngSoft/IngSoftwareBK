@@ -34,7 +34,7 @@ public class  HelpBK {
     public static String projectStringTicket(String str) {
 		String id; 
 		int lungStr;
-		String projectName="ZOOKEEPER-"; 
+		String projectName="BOOKKEEPER-"; 
 		int lungProjectName=0;
 		int i=0;
 		int indice;

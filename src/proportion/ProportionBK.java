@@ -39,7 +39,7 @@ public class ProportionBK {
 		  
 	      String queryTicketsWITHinjectedVersion="SELECT * "
 	    		     +" FROM \"Ticket_FV_OV_P_IV_BK\"  AS FV_OV_P_IV "
-	      		     + "JOIN \"TicketWithInjectedVersionBK\"  AS tickWithIV \") "
+	      		     + "JOIN \"TicketWithInjectedVersionBK\"  AS tickWithIV  "
 	      		     + "ON FV_OV_P_IV.\"TicketBugID\"  =  tickWithIV.\"TicketBugID\"   "
 	      		     + "WHERE  \"FV\" > \"OV\"  ";
 			
@@ -64,9 +64,9 @@ public class ProportionBK {
 	      
 	      //Execute sql query
 	    
-	      String query="UPDATE \"TicketWithInjectedVersionBK\""
-	      		     + "SET   ( \"P\" = ? ) "+
-					   "WHERE \"TicketBugID\"=?";
+	      String query="UPDATE \"TicketWithInjectedVersionBK\"  "
+	      		     + "SET   \"P\" = ?  "+
+					   "WHERE \"TicketBugID\" =?    ";
 			  try(PreparedStatement statUpdate=con.prepareStatement(query) ){
 	    	
 			   for (int j = 0; j <  ticketsBugID.size(); j++) {
@@ -78,8 +78,8 @@ public class ProportionBK {
 			   			   
 		    }//try 
 			
-		 String query2="UPDATE  \"Ticket_FV_OV_P_IV_BK\""
-		      		 + "SET     ( \"P\" = ? ) "+
+		 String query2="UPDATE  \"Ticket_FV_OV_P_IV_BK\"   "
+		      		 + "SET     \"P\" = ?  "+
 					   "WHERE   \"TicketBugID\"  =?";
 		 try(PreparedStatement statUpdate=con.prepareStatement(query2) ){
 		    	
@@ -107,7 +107,7 @@ public class ProportionBK {
 		  
 	      String queryP=" SELECT  *  "   
   				+ "FROM \"TicketWithInjectedVersionBK\"    "     			  				
-  				+ "WHERE \"P\" IS NOT NULL  ";
+  				+ "WHERE \"P\" >= 1  ";
   				
 	      try(var stat=con.prepareStatement(queryP) ){
 			  resultP=stat.executeQuery();
@@ -173,7 +173,7 @@ public class ProportionBK {
 	      
 	      //Execute query update sql
 	      String queryUpdate="UPDATE \"Ticket_FV_OV_P_IV_BK\"  "
-	      		     + "SET ( \"P\" = ?, \"IV\" = ?, \"DateInjectedVersion\" = ? )   "+
+	      		     + "SET  \"P\" = ?, \"IV\" = ?, \"DateInjectedVersion\" = ?    "+
 					   "WHERE \"TicketBugID\" =?  ";
 			  try(PreparedStatement statUpdate=con.prepareStatement(queryUpdate) ){
 	    	
