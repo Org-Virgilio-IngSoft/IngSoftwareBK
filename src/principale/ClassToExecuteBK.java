@@ -29,9 +29,10 @@ public class ClassToExecuteBK {
 	 */
 	public static void main(String[] args) throws IOException, ParseException, SQLException, InterruptedException {
 		Logger logger=Logger.getLogger("MyLogger");	
+		String pathLogNOsnoring = HelpBK.getMyProperty("pathLogFileNOsnoring");
 		 
-		String pathLogBK = HelpBK.getMyProperty("pathLogFileLinkage");			
-		double linkage = LinkageBK.calculateLinkageBK(pathLogBK);
+		String pathLogLinkageBK = HelpBK.getMyProperty("pathLogFileLinkage");			
+		double linkage = LinkageBK.calculateLinkageBK(pathLogLinkageBK);
 			
 		logger.log(Level.INFO ,"LINKAGE BOOKKEEPER: {0}", linkage);
 		
@@ -47,21 +48,19 @@ public class ClassToExecuteBK {
 		ProportionBK proportion = new ProportionBK();		
 		proportion.calcolaProportionTicketsWithIV();
 		double pMedio = proportion.calculatePmedio();
-		System.out.println("pMedio "+pMedio);
+		logger.log(Level.INFO ,"pMedio : {0}", pMedio);		
 		proportion.ristimaDiNuovoInjectedVersions(pMedio);
 		
-		AutoriBK autori = new AutoriBK();
-		String pathLog = HelpBK.getMyProperty("pathLogFileNOsnoring");
-		autori.getNameAutorCommitDateCommitfromGitLog(pathLog);
+		AutoriBK autori = new AutoriBK();		
+		autori.getNameAutorCommitDateCommitfromGitLog(pathLogNOsnoring);
 		
-		//String pathLog = HelpBK.getMyProperty("pathLogFileNOsnoring");
+	
 		CommitTicketBK commit = new CommitTicketBK();
-		commit.createTripleCommitTicketDate(pathLog);
+		commit.createTripleCommitTicketDate(pathLogNOsnoring);
 		
 		JavaClassesProjectBK javaClasses = new JavaClassesProjectBK();
-		//String pathLog = HelpBK.getMyProperty("pathLogFileNOsnoring");
 		String pathProjFile = HelpBK.getMyProperty("pathInfoFileProject");
-		javaClasses.createPairsVersionJavaClass(pathLog, pathProjFile);
+		javaClasses.createPairsVersionJavaClass(pathLogNOsnoring, pathProjFile);
 		
 		
 		NAUTHmetricBK auth= new NAUTHmetricBK();
