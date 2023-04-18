@@ -49,4 +49,19 @@ public class HelpMathBK {
         return total / numbers.size();
     }//fine metodo
 	
+    public static int findSum(List<Integer> numbers) {
+    	int total = 0;
+    	
+    	 
+    	for(int i=0; i<numbers.size(); i++){
+         	total = total + numbers.get(i);        
+    	}
+
+        return total;
+    }//fine metodo
+    
+    private HelpMathBK() {
+    	
+    }
+    
 }

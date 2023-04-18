@@ -9,6 +9,8 @@ pathFileTicketsWithAffectedVersions=D:\\Libri\\Universita\\ProgettoFalessi\\Book
 pathTicketsIDwithAffectedVersionAndIDversionBK=D:\\Libri\\Universita\\ProgettoFalessi\\BookkeeperRepo\\TicketsIDwithAffectedVersionAndIDversionBK.txt
 pathTicketsBugWithFVOVdates=D:\\Libri\\Universita\\ProgettoFalessi\\BookkeeperRepo\\TicketsBugWithFVOVdates.txt
 
+pathArffFolder=D:\Libri\Universita\ProgettoFalessi\BK\
+
 maxNumberOfversions=7
 
 dateNOsnoring=2014-06-27

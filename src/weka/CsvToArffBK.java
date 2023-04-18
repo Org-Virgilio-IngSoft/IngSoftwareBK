@@ -5,12 +5,9 @@ package weka;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * @author Virgilio
@@ -18,7 +15,7 @@ import java.util.logging.Logger;
  */
 public class CsvToArffBK {
 
-	public static void convert(String pathCsvToConvert,String pathToArff) throws IOException {
+	public static void convertMyDataset(String pathCsvToConvert,String pathToArff) throws IOException {
 		String row="";
 		String[] labels;
 		String numeric = "NUMERIC";
@@ -36,18 +33,9 @@ public class CsvToArffBK {
 				              numeric,//AvgChgSetSize
 				              "{true,false}"}; // buggy
 		int lungLabels=0;
-		Logger logger=Logger.getLogger("MyLogger");	
 		
 		String datasetName="@RELATION my_dataset";
 		
-		File myFile = new File(pathToArff);
-	      if (myFile.createNewFile()) {
-	    	logger.log(Level.INFO ,"File creato ok: {0}", myFile.getName());        
-	      } else {
-	    	logger.log(Level.INFO ,"File già esiste: {0}", myFile.getName());	       
-	        return;
-	      }
-	     
 	      
 		try(BufferedReader csvReader = new BufferedReader(new FileReader(pathCsvToConvert));
 		    BufferedWriter arffWriter = new BufferedWriter(new FileWriter(pathToArff))
@@ -70,6 +58,7 @@ public class CsvToArffBK {
 			
 			arffWriter.write("@DATA\n");
 			arffWriter.flush();
+			
 			while ((row = csvReader.readLine()) != null) {
 				
 				arffWriter.write(row+"\n");

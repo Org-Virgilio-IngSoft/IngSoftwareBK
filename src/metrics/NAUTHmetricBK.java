@@ -45,12 +45,9 @@ public class NAUTHmetricBK {
 		
 		ResultSet rsJavaClasses;
 		ResultSet rsJavaClasses2;
-		Connection conn;
-		Connection conn2;
-		Connection connUpdate;
-	    conn =DBaseBK.connectToDBtickectBugBookkeeper();
-	    conn2 =DBaseBK.connectToDBtickectBugBookkeeper();
-	    connUpdate =DBaseBK.connectToDBtickectBugBookkeeper();
+		Connection conn=DBaseBK.connectToDBtickectBugBookkeeper();
+		Connection conn2=DBaseBK.connectToDBtickectBugBookkeeper();
+		Connection connUpdate=DBaseBK.connectToDBtickectBugBookkeeper();
 		
 		String queryJavaClasses=" SELECT \"NameClass\",COUNT(\"NameClass\") "
 				+ "FROM \"ListJavaClassesBK\"   "

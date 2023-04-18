@@ -40,6 +40,7 @@ public class LOCADDEDmetricBK {
 				
 		Connection conn=DBaseBK.connectToDBtickectBugBookkeeper();
 		Connection conn2=DBaseBK.connectToDBtickectBugBookkeeper();
+		Connection connUpdate=DBaseBK.connectToDBtickectBugBookkeeper();
 		ResultSet rsJavaNames;
 		ResultSet rsLocAdded;
 		
@@ -91,6 +92,7 @@ public class LOCADDEDmetricBK {
 						locAdded=Integer.parseInt(locAddedString);
 						
 						listLocAdded.add(locAdded);
+						locAdded=HelpMathBK.findSum(listLocAdded);
 						locAddedAvg=HelpMathBK.findAVG(listLocAdded);
 						locAddedMax=HelpMathBK.findMax(listLocAdded);
 						
@@ -99,7 +101,7 @@ public class LOCADDEDmetricBK {
 				              "SET  \"LOCadded\"= ?, \"MaxLOCadded\"= ? , \"AvgLOCadded\" = ? "+
 						      "WHERE \"NameClass\" = ?  AND  \"Commit\" = ? " ;
 						           		 		
-						try(PreparedStatement statUpd=conn.prepareStatement(queryUpd)){
+						try(PreparedStatement statUpd=connUpdate.prepareStatement(queryUpd)){
 							
 							statUpd.setInt(1, locAdded);
 							statUpd.setInt(2, locAddedMax);
