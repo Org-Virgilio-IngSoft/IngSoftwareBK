@@ -13,6 +13,9 @@ import helper.HelpBK;
 import metrics.LOCADDEDmetricBK;
 import metrics.NAUTHmetricBK;
 import proportion.ProportionBK;
+import weka.CreateArffFileBK;
+import weka.ConvertCsvToArffBK;
+import weka.WalkForwardBK;
 
 /**
  * @author Virgilio
@@ -32,9 +35,9 @@ public class ClassToExecuteBK {
 		String pathLogNOsnoring = HelpBK.getMyProperty("pathLogFileNOsnoring");
 		 
 		String pathLogLinkageBK = HelpBK.getMyProperty("pathLogFileLinkage");			
-		double linkage = LinkageBK.calculateLinkageBK(pathLogLinkageBK);
-			
+		double linkage = LinkageBK.calculateLinkageBK(pathLogLinkageBK);		
 		logger.log(Level.INFO ,"LINKAGE BOOKKEEPER: {0}", linkage);
+		
 		
 		ReleasesBK release = new ReleasesBK();
 		String pathFileTicketsWithAffectedVersions = HelpBK.getMyProperty("pathFileTicketsWithAffectedVersions");
@@ -45,11 +48,13 @@ public class ClassToExecuteBK {
         String pathTicketsBugWithFVOVdatesBK = HelpBK.getMyProperty("pathTicketsBugWithFVOVdates");
         release.findFixVersionsOpenVersionsIndex(pathTicketsBugWithFVOVdatesBK);
 		
+		
 		ProportionBK proportion = new ProportionBK();		
 		proportion.calcolaProportionTicketsWithIV();
 		double pMedio = proportion.calculatePmedio();
 		logger.log(Level.INFO ,"pMedio : {0}", pMedio);		
 		proportion.ristimaDiNuovoInjectedVersions(pMedio);
+		
 		
 		AutoriBK autori = new AutoriBK();		
 		autori.getNameAutorCommitDateCommitfromGitLog(pathLogNOsnoring);
@@ -68,6 +73,15 @@ public class ClassToExecuteBK {
 		
 		LOCADDEDmetricBK loc= new LOCADDEDmetricBK();
 		loc.calculateLocAdded();
+		
+		String pathDatasetCSV = HelpBK.getMyProperty("pathDatasetCSV");
+		String pathDatasetARFF = HelpBK.getMyProperty("pathDatasetARFF");
+		CreateArffFileBK.createArffFile("ZOOKEEPERVersionInfo");
+		ConvertCsvToArffBK.convertMyDataset(pathDatasetCSV, pathDatasetARFF);
+		
+		WalkForwardBK walkForward = new WalkForwardBK();		
+		walkForward.walkForwardTraining(pathDatasetARFF);
+		walkForward.walkForwardTest(pathDatasetARFF);
 		
 		logger.log(Level.INFO ,"FINE ClassToExecuteBK!!");
 			

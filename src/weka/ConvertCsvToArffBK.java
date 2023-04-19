@@ -13,10 +13,11 @@ import java.io.IOException;
  * @author Virgilio
  *
  */
-public class CsvToArffBK {
+public class ConvertCsvToArffBK {
 
-	public static void convertMyDataset(String pathCsvToConvert,String pathToArff) throws IOException {
-		String row="";
+	public static void convertMyDataset(String pathToCsv,String pathToArff) throws IOException {
+		
+		String line="";	   
 		String[] labels;
 		String numeric = "NUMERIC";
 		String[] typeLabels={numeric, //version
@@ -37,7 +38,7 @@ public class CsvToArffBK {
 		String datasetName="@RELATION my_dataset";
 		
 	      
-		try(BufferedReader csvReader = new BufferedReader(new FileReader(pathCsvToConvert));
+		try(BufferedReader csvReader = new BufferedReader(new FileReader(pathToCsv));
 		    BufferedWriter arffWriter = new BufferedWriter(new FileWriter(pathToArff))
 				                                                                         ){
 			
@@ -46,8 +47,8 @@ public class CsvToArffBK {
 			arffWriter.write("\n");
 			arffWriter.flush();
 			
-			row = csvReader.readLine();
-			labels = row.split(",");
+			line = csvReader.readLine();
+			labels = line.split(",");
 			lungLabels=labels.length;
 			
 			for (int i = 0; i < lungLabels; i++) {
@@ -59,18 +60,21 @@ public class CsvToArffBK {
 			arffWriter.write("@DATA\n");
 			arffWriter.flush();
 			
-			while ((row = csvReader.readLine()) != null) {
-				
-				arffWriter.write(row+"\n");
-				arffWriter.flush();
-			}//while
+			 while ((line = csvReader.readLine()) != null) {
+					
+				  arffWriter.write(line+"\n");
+				  arffWriter.flush();
+			  }//while
 			
 		}//try
-					
-				
-	}//method
+	    				      							  		 
+									
+	}//fine method
 	
-     private CsvToArffBK() {
+
+	
+	
+     private ConvertCsvToArffBK() {
 		
 	}
 	
