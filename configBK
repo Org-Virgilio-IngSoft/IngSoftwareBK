@@ -16,6 +16,6 @@ pathDatasetARFF=D:\\Libri\\Universita\\ProgettoFalessi\\BK\\ZOOKEEPERVersionInfo
 numberTrainingSetsToCreate=4
 numberTestSetsToCreate=4
 
-maxNumberOfversions=7
+maxNumberOfversions=8
 
 dateNOsnoring=2014-06-27

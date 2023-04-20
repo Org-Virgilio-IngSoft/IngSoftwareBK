@@ -21,38 +21,36 @@ import helper.HelpBK;
  */
 public class NAUTHmetricBK {
 
-	public void caculateNAUTHforEveryVersion() throws IOException, SQLException {
+	public void calculateNAUTHforEveryVersion() throws IOException, SQLException {
 		
 		int i=0;
 		String maxNumberOfversions = HelpBK.getMyProperty("maxNumberOfversions"); 
 		int max = Integer.parseInt(maxNumberOfversions);
 		
-		for ( i = 0; i < max ; i++) {
-			caculateNAUTHforSpecificVersion(i);
+		for ( i = 1; i <= max ; i++) {
+			calculateNAUTHforSpecificVersion(i);
 		}
 				
 	}//fine metodo
 	
-    public void caculateNAUTHforSpecificVersion(int version) throws  IOException, SQLException {
+    public void calculateNAUTHforSpecificVersion(int version) throws  IOException, SQLException {
 		
 		String javaClass;
 		String autore;
-		String commit;
-		String dateCommit;
 		int nAuth=0;
 		List<String> listAuthors=new ArrayList<>();
 		
 		
 		ResultSet rsJavaClasses;
-		ResultSet rsJavaClasses2;
+		ResultSet rsNAuth;
 		Connection conn=DBaseBK.connectToDBtickectBugBookkeeper();
 		Connection conn2=DBaseBK.connectToDBtickectBugBookkeeper();
 		Connection connUpdate=DBaseBK.connectToDBtickectBugBookkeeper();
 		
-		String queryJavaClasses=" SELECT \"NameClass\",COUNT(\"NameClass\") "
+		String queryJavaClasses=" SELECT DISTINCT \"NameClass\", \"Version\" "
 				+ "FROM \"ListJavaClassesBK\"   "
-				+ "WHERE \"NameClass\" LIKE '%.java' AND \"Version\"= ? "
-				+ "GROUP BY \"NameClass\" ";
+				+ "WHERE \"NameClass\" LIKE '%.java' AND \"Version\"= ? ";
+				
 		
 		try(PreparedStatement stat=conn.prepareStatement(queryJavaClasses) ){
 			stat.setInt(1, version);
@@ -68,43 +66,38 @@ public class NAUTHmetricBK {
      				+ "FROM \"ListJavaClassesBK\"  AS jc  "
         			+ "JOIN \"AutoriBK\"  AS auth  "
      				+ "ON  jc.\"Commit\"  =  auth.\"Commit\"    "
-     				+ "WHERE jc.\"NameClass\" = ?  "
-     				+ "ORDER BY jc.\"DateCommit\"  ASC   ";
+     				+ "WHERE jc.\"NameClass\" = ?  ";
+     				
      		
         	 try(PreparedStatement stat2=conn2.prepareStatement(queryJavaClasses2) ){
   			     stat2.setString(1, javaClass);
-        		 rsJavaClasses2=stat2.executeQuery();
+        		 rsNAuth=stat2.executeQuery();
   			   
   			   			   
-  			   while(rsJavaClasses2.next()) {
-  				   
-  				     				   
-  				   autore=rsJavaClasses2.getString("NameAuthor");
-  				   commit=rsJavaClasses2.getString("Commit");
-  				   dateCommit=rsJavaClasses2.getString("DateCommit");
-  				   
+  			   while(rsNAuth.next()) {
+  				    				     				   
+  				   autore=rsNAuth.getString("NameAuthor");  				   				   
   				   listAuthors.add(autore);  				   
-  				   listAuthors=eliminaDuplicati(listAuthors);
-  				   
-  				   nAuth=listAuthors.size();
-  				   
-  				 String queryUpdate=" UPDATE \"ListJavaClassesBK\"  "
-	      		         + "SET \"NAuth\" = ? "
-	    		         + "WHERE   \"NameClass\"  = ? AND   "
-	    		         + "        \"Commit\"     = ? AND   "
-	                     + "        \"DateCommit\" = ?       ";
-			           					
-		         try(PreparedStatement statUpdate=connUpdate.prepareStatement(queryUpdate)){
-		        	 statUpdate.setInt(1, nAuth);
-		        	 statUpdate.setString(2, javaClass);
-		        	 statUpdate.setString(3, commit);	        	 
-		        	 statUpdate.setString(4, dateCommit);
-		        	 
-		        	 statUpdate.executeUpdate();
-		         }//try
-  				   
+  				    				   
   			   }//while
   			   
+  			   listAuthors=eliminaDuplicati(listAuthors);
+			   
+			   nAuth=listAuthors.size();
+			   
+			   String queryUpdate=" UPDATE \"DataSetBK\"  "
+    		         + "SET \"NAuth\" = ?  "
+  		             + "WHERE   \"Version\" = ? AND \"NameClass\" = ? ";
+  		         
+                  	           					
+	         try(PreparedStatement statUpdate=connUpdate.prepareStatement(queryUpdate)){
+	        	 statUpdate.setInt(1, nAuth);
+	        	 statUpdate.setInt(2, version);
+	        	 statUpdate.setString(3, javaClass);	        	
+	        	 
+	        	 statUpdate.executeUpdate();
+	         }//try
+  			    			   
   			   listAuthors.clear();
   			   
   			 }//try

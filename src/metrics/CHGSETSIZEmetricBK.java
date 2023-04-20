@@ -13,6 +13,7 @@ import java.util.List;
 
 import commands.CommandGitShowBK;
 import database.DBaseBK;
+import helper.HelpBK;
 import helper.HelpMathBK;
 
 /**
@@ -21,7 +22,19 @@ import helper.HelpMathBK;
  */
 public class CHGSETSIZEmetricBK {
 
-	public void calculateChgSetSize() throws SQLException, IOException, InterruptedException {
+public void calculateCHGSETSIZEforEveryVersion() throws IOException, SQLException, InterruptedException {
+		
+		int i=0;
+		String maxNumberOfversions = HelpBK.getMyProperty("maxNumberOfversions"); 
+		int max = Integer.parseInt(maxNumberOfversions);
+		
+		for ( i = 1; i <= max ; i++) {
+			calculateCHGSETSIZEforSpecificVersion(i);
+		}
+				
+	}//fine metodo
+	
+	public void calculateCHGSETSIZEforSpecificVersion(int version) throws SQLException, IOException, InterruptedException {
 		
 		List<String> listFiles=new ArrayList<>();
 		
@@ -38,11 +51,13 @@ public class CHGSETSIZEmetricBK {
 		ResultSet rsJavaNames;
 		ResultSet rsCHGSETSIZE;
 		
-		String queryForClasses="SELECT DISTINCT FROM \"ListJavaClassesBK\" "+
-				 " WHERE \"NameClass\" LIKE '%.java' ";
+		String queryForClasses="SELECT DISTINCT \"NameClass\", \"Version\"  "
+				+"FROM \"ListJavaClassesBK\" "
+			    +"WHERE \"NameClass\" LIKE '%.java' AND \"Version\"= ? ";
 		
 		
 		try(PreparedStatement stat=conn.prepareStatement(queryForClasses) ){
+			stat.setInt(1, version);
 			rsJavaNames=stat.executeQuery();
 						
             while( rsJavaNames.next() ) {
@@ -50,26 +65,31 @@ public class CHGSETSIZEmetricBK {
 			String fileJavaName=rsJavaNames.getString("NameClass");
 		         
 			String query2 = "SELECT * FROM \"ListJavaClassesBK\"  "
-					+ "WHERE  \"NameClass\" =? "
-					+ "ORDER BY \"Version\" ASC ";
+					+ "WHERE  \"NameClass\" =? AND \"Version\"= ? ";
+					
 			
 			try(PreparedStatement stat2=conn2.prepareStatement(query2) ){
 				stat2.setString(1, fileJavaName);
 				rsCHGSETSIZE=stat2.executeQuery();
 				
+				 while(rsCHGSETSIZE.next()) {
+     				   
+					 String commit = rsCHGSETSIZE.getString("Commit");
+					    
+					 listFiles=cmdgitShow.commandGitShow(commit);		   
+					 chgSetSize=listFiles.size() - 1;
+					
+					 listChgSetSize.add(chgSetSize);  				   
+	  				    				   
+	  			 }//while interno
 				
-				String commit = rsCHGSETSIZE.getString("Commit");
-			    
-			    listFiles=cmdgitShow.commandGitShow(commit);		   
-			    chgSetSize=listFiles.size() - 1;
-			
-			    listChgSetSize.add(chgSetSize);
+				
 				chgSetSizeAvg=HelpMathBK.findAVG(listChgSetSize);
 				chgSetSizeMax=HelpMathBK.findMax(listChgSetSize);
 			    
-				String queryUpd="UPDATE \"ListJavaClassesBK\"  "+
+				String queryUpd="UPDATE \"DataSetBK\"  "+
 			              "SET  \"ChgSetSize\"= ?, \"MaxChgSetSize\"= ? , \"AvgChgSetSize\" = ? "+
-					      "WHERE \"NameClass\" = ?  AND  \"Commit\" = ? " ;
+					      "WHERE \"NameClass\" = ?  AND  \"Version\" = ? " ;
 					           		 		
 					try(PreparedStatement statUpd=connUpdate.prepareStatement(queryUpd)){
 						
@@ -77,11 +97,11 @@ public class CHGSETSIZEmetricBK {
 						statUpd.setInt(2, chgSetSizeMax);
 						statUpd.setDouble(3 , chgSetSizeAvg);
 						statUpd.setString(4, fileJavaName);
-						statUpd.setString(5, commit);
+						statUpd.setInt(5, version);
 						statUpd.executeUpdate();
 					}
 				
-				
+				   listChgSetSize.clear();
               }//try interno 
 	        }//while
 	    }//try
