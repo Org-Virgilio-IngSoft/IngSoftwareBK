@@ -71,11 +71,14 @@ public class ClassToExecuteBK {
 		javaClasses.createPairsVersionJavaClass(pathLogNOsnoring, pathProjFile);
 		
 		
+		DatasetJavaClassesAndVersionsBK dataset = new DatasetJavaClassesAndVersionsBK();
+		dataset.fillFirstTwoColumnDataset();
+		
 		NAUTHmetricBK auth= new NAUTHmetricBK();
 		auth.calculateNAUTHforEveryVersion();
 		
 		LOCADDEDmetricBK loc= new LOCADDEDmetricBK();
-		loc.calculateLOCADDEDforEveryVersion() ;
+		loc.calculateLOCADDEDforEveryVersion();
 		
 		CHGSETSIZEmetricBK chg = new CHGSETSIZEmetricBK();
 		chg.calculateCHGSETSIZEforEveryVersion();
@@ -92,8 +95,7 @@ public class ClassToExecuteBK {
 		walkForward.walkForwardTraining(pathDatasetARFF);
 		walkForward.walkForwardTest(pathDatasetARFF);
 				
-		DatasetJavaClassesAndVersionsBK dataset = new DatasetJavaClassesAndVersionsBK();
-		dataset.fillFirstTwoColumnDataset();
+		
 		
 		logger.log(Level.INFO ,"FINE ClassToExecuteBK!!");
 			

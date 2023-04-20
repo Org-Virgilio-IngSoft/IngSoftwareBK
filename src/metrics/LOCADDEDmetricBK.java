@@ -36,18 +36,11 @@ public void calculateLOCADDEDforEveryVersion() throws IOException, SQLException,
 	
 	public void calculateLOCADDEDforSpecificVersion(int version) throws SQLException, IOException, InterruptedException {
 		
-		List<String> listFiles=new ArrayList<>();
-		String[] bufferSplit;
-		String locAddedString="/";
-		int locAdded=0;
-		
+		List<String> listFiles=new ArrayList<>();		
+		int locAdded=0;	
 		int locAddedMax=0;
 		double locAddedAvg=0.0;
 		List<Integer> listLocAdded=new ArrayList<>();
-		
-				
-		boolean foundFile=false;
-		boolean buffSplitHasRightLenght=false; 
 		
 		CommandGitShowBK cmdgitShow=new  CommandGitShowBK();
 				
@@ -83,38 +76,10 @@ public void calculateLOCADDEDforEveryVersion() throws IOException, SQLException,
     				   	  				    				   				   	  				     				   	  				    				   	  		  				
 			  	  String commit = rsLocAdded.getString("Commit");
 			    
-			      listFiles=cmdgitShow.commandGitShow(commit);		   
-				  int size=listFiles.size();
+			      listFiles=cmdgitShow.commandGitShow(commit);		   				  
 				
-				  for(int i=(size-1);i>=0;i--) {
-					
-					  if(listFiles.get(i).contains(fileJavaName) ) {
-						  foundFile=true;
-					  }
-					
-					  bufferSplit=listFiles.get(i).split("\t");
-					 
-					  if((bufferSplit.length) ==3 ) {
-						buffSplitHasRightLenght=true;
-					  }
-					
-					  if(foundFile && buffSplitHasRightLenght) {
-						
-						 bufferSplit=listFiles.get(i).split("\t");
-											
-						 locAddedString=bufferSplit[0];				
-						 locAddedString=specialCaseLOCaddedValue(locAddedString);
-						
-						 locAdded=Integer.parseInt(locAddedString);
-						
-						 listLocAdded.add(locAdded);
-						
-						 foundFile=false;
-						 buffSplitHasRightLenght=false;
-						 break;
-					  }//if
-					
-				  }//for
+			      handleListFilesGitShow(listFiles, fileJavaName,listLocAdded);
+			      				 
 				
 			  }//while interno
 				
@@ -147,6 +112,47 @@ public void calculateLOCADDEDforEveryVersion() throws IOException, SQLException,
 		
 	}//fine metodo
 	
+	
+	public void handleListFilesGitShow(List<String> listFiles,String fileJavaName, List<Integer> listLocAdded) {
+		
+		String[] bufferSplit;
+		String locAddedString="/";
+		boolean foundFile=false;
+		boolean buffSplitHasRightLenght=false; 
+		
+		int size=listFiles.size();
+		
+		  for(int i=(size-1);i>=0;i--) {
+			
+			  if(listFiles.get(i).contains(fileJavaName) ) {
+				  foundFile=true;
+			  }
+			
+			  bufferSplit=listFiles.get(i).split("\t");
+			 
+			  if((bufferSplit.length) ==3 ) {
+				buffSplitHasRightLenght=true;
+			  }
+			
+			  if(foundFile && buffSplitHasRightLenght) {
+				
+				 bufferSplit=listFiles.get(i).split("\t");
+									
+				 locAddedString=bufferSplit[0];				
+				 locAddedString=specialCaseLOCaddedValue(locAddedString);
+				
+				 int locAdded=Integer.parseInt(locAddedString);
+				
+				 listLocAdded.add(locAdded);
+				
+				 foundFile=false;
+				 buffSplitHasRightLenght=false;
+				 break;
+			  }//if
+			
+		  }//for
+		
+	}//fine metodo
 	
 	//metodo che elimina il caso LocAdded = "-"  
 	public String specialCaseLOCaddedValue(String locAddedString) {
