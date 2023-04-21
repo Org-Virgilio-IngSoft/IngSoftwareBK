@@ -35,6 +35,7 @@ public class ClassToExecuteBK {
 	 */
 	public static void main(String[] args) throws IOException, ParseException, SQLException, InterruptedException {
 		Logger logger=Logger.getLogger("MyLogger");	
+		
 		String pathLogNOsnoring = HelpBK.getMyProperty("pathLogFileNOsnoring");
 		 
 		String pathLogLinkageBK = HelpBK.getMyProperty("pathLogFileLinkage");			
@@ -77,14 +78,32 @@ public class ClassToExecuteBK {
 		NAUTHmetricBK auth= new NAUTHmetricBK();
 		auth.calculateNAUTHforEveryVersion();
 		
-		LOCADDEDmetricBK loc= new LOCADDEDmetricBK();
-		loc.calculateLOCADDEDforEveryVersion();
+		int i=0;
+		String maxNumberOfversions = HelpBK.getMyProperty("maxNumberOfversions"); 
+		int max = Integer.parseInt(maxNumberOfversions);
 		
-		CHGSETSIZEmetricBK chg = new CHGSETSIZEmetricBK();
-		chg.calculateCHGSETSIZEforEveryVersion();
+		Thread[] threadsLOCADDED = new Thread[max+1];	
+		for ( i = 1; i <= max ; i++) {
+			threadsLOCADDED[i] = new Thread(new LOCADDEDmetricBK(i));
+			threadsLOCADDED[i].start();
+			
+		}
+				
 		
-		CHURNmetricBK churn = new CHURNmetricBK();
-		churn.calculateCHURNforEveryVersion();
+		Thread[] threadsCHGSETSIZE = new Thread[max+1];	
+		for ( i = 1; i <= max ; i++) {
+			threadsCHGSETSIZE[i] = new Thread(new CHGSETSIZEmetricBK(i));
+			threadsCHGSETSIZE[i].start();
+			
+		}
+				
+		
+		Thread[] threadsCHURN = new Thread[max+1];	
+		for ( i = 1; i <= max ; i++) {
+			threadsCHURN[i] = new Thread(new CHURNmetricBK(i));
+			threadsCHURN[i].start();
+			
+		}
 		
 		String pathDatasetCSV = HelpBK.getMyProperty("pathDatasetCSV");
 		String pathDatasetARFF = HelpBK.getMyProperty("pathDatasetARFF");
@@ -94,8 +113,7 @@ public class ClassToExecuteBK {
 		WalkForwardBK walkForward = new WalkForwardBK();		
 		walkForward.walkForwardTraining(pathDatasetARFF);
 		walkForward.walkForwardTest(pathDatasetARFF);
-				
-		
+								
 		
 		logger.log(Level.INFO ,"FINE ClassToExecuteBK!!");
 			

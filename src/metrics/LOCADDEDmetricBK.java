@@ -15,13 +15,34 @@ import commands.CommandGitShowBK;
 import database.DBaseBK;
 import helper.HelpBK;
 import helper.HelpMathBK;
+import logger.MyLoggerBK;
 
 /**
  * @author Virgilio
  *
  */
-public class LOCADDEDmetricBK {
+public class LOCADDEDmetricBK implements Runnable {
 
+private int versione;
+	
+	public LOCADDEDmetricBK(int versione) {
+		this.versione=versione;
+	}
+	
+	@Override
+	  public void run() {
+	    // use the parameter here
+		 
+			try {
+				calculateLOCADDEDforSpecificVersion(versione);
+			} catch (SQLException | IOException | InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+	  }//fine metodo
+	
+	
 public void calculateLOCADDEDforEveryVersion() throws IOException, SQLException, InterruptedException {
 		
 		int i=0;
@@ -34,13 +55,16 @@ public void calculateLOCADDEDforEveryVersion() throws IOException, SQLException,
 				
 	}//fine metodo
 	
-	public void calculateLOCADDEDforSpecificVersion(int version) throws SQLException, IOException, InterruptedException {
+public void calculateLOCADDEDforSpecificVersion(int version) throws SQLException, IOException, InterruptedException {
+		
 		
 		List<String> listFiles=new ArrayList<>();		
 		int locAdded=0;	
 		int locAddedMax=0;
 		double locAddedAvg=0.0;
 		List<Integer> listLocAdded=new ArrayList<>();
+		
+		String logMsg="LOCADDED BK V "+Integer.toString(version)+" ";
 		
 		CommandGitShowBK cmdgitShow=new  CommandGitShowBK();
 				
@@ -58,16 +82,18 @@ public void calculateLOCADDEDforEveryVersion() throws IOException, SQLException,
 			stat.setInt(1, version);
 			rsJavaNames=stat.executeQuery();
 		
-				
-          while( rsJavaNames.next() ) {
+			
+            while( rsJavaNames.next() ) {
         	
-			String fileJavaName=rsJavaNames.getString("NameClass");
-		
-			String query2 = "SELECT * FROM \"ListJavaClassesBK\"  "
+        	 
+			 String fileJavaName=rsJavaNames.getString("NameClass");
+			 MyLoggerBK.logInfo( logMsg.concat(fileJavaName) );
+				   				
+			 String query2 = "SELECT * FROM \"ListJavaClassesBK\"  "
 					+ "WHERE  \"NameClass\" =? AND \"Version\"= ? ";
 					
 			
-			try(PreparedStatement stat2=conn2.prepareStatement(query2) ){
+			 try(PreparedStatement stat2=conn2.prepareStatement(query2) ){
 				stat2.setString(1, fileJavaName);
 				stat2.setInt(2, version);
 				rsLocAdded=stat2.executeQuery();

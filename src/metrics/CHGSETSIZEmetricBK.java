@@ -10,18 +10,41 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
 
 import commands.CommandGitShowBK;
 import database.DBaseBK;
 import helper.HelpBK;
 import helper.HelpMathBK;
+import logger.MyLoggerBK;
 
 /**
  * @author Virgilio
  *
  */
-public class CHGSETSIZEmetricBK {
+public class CHGSETSIZEmetricBK implements Runnable {
 
+	private int versione;
+	
+	public CHGSETSIZEmetricBK(int versione) {
+		this.versione=versione;
+	}
+	
+	@Override
+	  public void run() {
+	    // use the parameter here
+		 
+			try {
+				calculateCHGSETSIZEforSpecificVersion(versione);
+			} catch (SQLException | IOException | InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+	  }//fine metodo
+	
+	
 public void calculateCHGSETSIZEforEveryVersion() throws IOException, SQLException, InterruptedException {
 		
 		int i=0;
@@ -30,9 +53,12 @@ public void calculateCHGSETSIZEforEveryVersion() throws IOException, SQLExceptio
 		
 		for ( i = 1; i <= max ; i++) {
 			calculateCHGSETSIZEforSpecificVersion(i);
+			
 		}
 				
 	}//fine metodo
+
+
 	
 	public void calculateCHGSETSIZEforSpecificVersion(int version) throws SQLException, IOException, InterruptedException {
 		
@@ -42,6 +68,8 @@ public void calculateCHGSETSIZEforEveryVersion() throws IOException, SQLExceptio
 		int chgSetSizeMax=0;
 		double chgSetSizeAvg=0.0;
 		List<Integer> listChgSetSize=new ArrayList<>();
+		
+		String logMsg="CHGSETSIZE BK V "+Integer.toString(version)+" ";
 		
 		CommandGitShowBK cmdgitShow = new  CommandGitShowBK();
 		
@@ -59,28 +87,32 @@ public void calculateCHGSETSIZEforEveryVersion() throws IOException, SQLExceptio
 		try(PreparedStatement stat=conn.prepareStatement(queryForClasses) ){
 			stat.setInt(1, version);
 			rsJavaNames=stat.executeQuery();
-						
+			
+			
             while( rsJavaNames.next() ) {
-        	
+            	    	
 			String fileJavaName=rsJavaNames.getString("NameClass");
-		         
+			MyLoggerBK.logInfo(logMsg.concat(fileJavaName));
+			
+			
 			String query2 = "SELECT * FROM \"ListJavaClassesBK\"  "
 					+ "WHERE  \"NameClass\" =? AND \"Version\"= ? ";
 					
 			
 			try(PreparedStatement stat2=conn2.prepareStatement(query2) ){
 				stat2.setString(1, fileJavaName);
+				stat2.setInt(2, version);
 				rsCHGSETSIZE=stat2.executeQuery();
 				
 				 while(rsCHGSETSIZE.next()) {
-     				   
+					 
 					 String commit = rsCHGSETSIZE.getString("Commit");
-					    
+					   										 
 					 listFiles=cmdgitShow.commandGitShow(commit);		   
 					 chgSetSize=listFiles.size() - 1;
 					
 					 listChgSetSize.add(chgSetSize);  				   
-	  				    				   
+	  				  					 					 				 
 	  			 }//while interno
 				
 				

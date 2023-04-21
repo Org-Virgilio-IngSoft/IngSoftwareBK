@@ -16,12 +16,32 @@ import commands.CommandGitShowBK;
 import database.DBaseBK;
 import helper.HelpBK;
 import helper.HelpMathBK;
+import logger.MyLoggerBK;
 
 /**
  * @author Virgilio
  *
  */
-public class CHURNmetricBK {
+public class CHURNmetricBK implements Runnable{
+	
+private int versione;
+	
+	public CHURNmetricBK(int versione) {
+		this.versione=versione;
+	}
+	
+	@Override
+	  public void run() {
+	    // use the parameter here
+		 
+			try {
+				calculateCHURNforSpecificVersion(versione);
+			} catch (SQLException | IOException | InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+	  }//fine metodo
 	
 public void calculateCHURNforEveryVersion() throws IOException, SQLException, InterruptedException {
 		
@@ -42,6 +62,8 @@ public void calculateCHURNforSpecificVersion(int version) throws IOException, In
 		int churnMax=0;
 		double churnAvg=0;
 		List<Integer> listChurnValues=new ArrayList<>();
+		
+		String logMsg="CHURN BK V "+Integer.toString(version)+" ";
 	
 		CommandGitShowBK comGitShow= new  CommandGitShowBK();
 				
@@ -63,6 +85,7 @@ public void calculateCHURNforSpecificVersion(int version) throws IOException, In
           while( rsJavaClasses.next() ) {
         	
 			String fileNameJava=rsJavaClasses.getString("NameClass");
+			MyLoggerBK.logInfo( logMsg.concat(fileNameJava) );
 			
 			String query2 = "SELECT * FROM \"ListJavaClassesBK\"  "
 					+"WHERE  \"NameClass\" =? AND \"Version\"= ? ";
@@ -74,7 +97,7 @@ public void calculateCHURNforSpecificVersion(int version) throws IOException, In
 				
 				while(rsChurn.next()) {
 																
-		          String commit = rsJavaClasses.getString("Commit");
+		          String commit = rsChurn.getString("Commit");
 		    
 		          listaFile=comGitShow.commandGitShow(commit);		    			      
 			

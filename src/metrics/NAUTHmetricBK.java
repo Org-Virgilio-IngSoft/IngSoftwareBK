@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 
 import database.DBaseBK;
 import helper.HelpBK;
+import logger.MyLoggerBK;
 
 /**
  * @author Virgilio
@@ -40,6 +41,8 @@ public class NAUTHmetricBK {
 		int nAuth=0;
 		List<String> listAuthors=new ArrayList<>();
 		
+		String logMsg="NAUTH BK V "+Integer.toString(version)+" ";
+		
 		
 		ResultSet rsJavaClasses;
 		ResultSet rsNAuth;
@@ -61,7 +64,8 @@ public class NAUTHmetricBK {
         	
         	 javaClass=rsJavaClasses.getString("NameClass");
         	 
-        	  
+        	 MyLoggerBK.logInfo( logMsg.concat(javaClass) );
+        	 
         	 String queryJavaClasses2=" SELECT  *  "   
      				+ "FROM \"ListJavaClassesBK\"  AS jc  "
         			+ "JOIN \"AutoriBK\"  AS auth  "
