@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import commands.CommandGitShowBK;
 import database.DBaseBK;
 import helper.HelpBK;
@@ -39,6 +38,7 @@ private int versione;
 			} catch (SQLException | IOException | InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				Thread.currentThread().interrupt();				
 			}
 		
 	  }//fine metodo

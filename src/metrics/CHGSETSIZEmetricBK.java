@@ -10,8 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-//import java.util.logging.Level;
-//import java.util.logging.Logger;
 
 import commands.CommandGitShowBK;
 import database.DBaseBK;
@@ -40,6 +38,7 @@ public class CHGSETSIZEmetricBK implements Runnable {
 			} catch (SQLException | IOException | InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				Thread.currentThread().interrupt();
 			}
 		
 	  }//fine metodo
