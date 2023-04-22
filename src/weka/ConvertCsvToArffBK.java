@@ -32,10 +32,10 @@ public class ConvertCsvToArffBK {
 				              numeric,//ChgSetSize
 				              numeric,//MaxChgSetSize
 				              numeric,//AvgChgSetSize
-				              "{true,false}"}; // buggy
+				              "{t,f}"}; // buggy
 		int lungLabels=0;
 		
-		String datasetName="@RELATION my_dataset";
+		String datasetName="@RELATION my_datasetBK";
 		
 	      
 		try(BufferedReader csvReader = new BufferedReader(new FileReader(pathToCsv));

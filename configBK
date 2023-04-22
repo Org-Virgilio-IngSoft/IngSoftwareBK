@@ -10,11 +10,11 @@ pathTicketsIDwithAffectedVersionAndIDversionBK=D:\\Libri\\Universita\\ProgettoFa
 pathTicketsBugWithFVOVdates=D:\\Libri\\Universita\\ProgettoFalessi\\BookkeeperRepo\\TicketsBugWithFVOVdates.txt
 
 pathArffFolder=D:\\Libri\\Universita\\ProgettoFalessi\\BK\\
-pathDatasetCSV=D:\\Libri\\Universita\\ProgettoFalessi\\BK\\ZOOKEEPERVersionInfo.csv
-pathDatasetARFF=D:\\Libri\\Universita\\ProgettoFalessi\\BK\\ZOOKEEPERVersionInfo.arff
+pathDatasetCSV=D:\\Libri\\Universita\\ProgettoFalessi\\BK\\DataSetBK.csv
+pathDatasetARFF=D:\\Libri\\Universita\\ProgettoFalessi\\BK\\DataSetBK.arff
 
-numberTrainingSetsToCreate=4
-numberTestSetsToCreate=4
+numberTrainingSetsToCreate=7
+numberTestSetsToCreate=7
 
 maxNumberOfversions=8
 
