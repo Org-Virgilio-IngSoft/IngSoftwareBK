@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 
 import dataset.DatasetJavaClassesAndVersionsBK;
 import helper.HelpBK;
+import helper.HelpPathBK;
 import metrics.BuggyBK;
 import metrics.CHGSETSIZEmetricBK;
 import metrics.CHURNmetricBK;
@@ -116,7 +117,15 @@ public class ClassToExecuteBK {
 		WalkForwardBK walkForward = new WalkForwardBK();		
 		walkForward.walkForwardTraining(pathDatasetARFF);
 		walkForward.walkForwardTest(pathDatasetARFF);
-								
+		
+							
+		String[] pathTrainSets;
+		pathTrainSets=HelpPathBK.createPathFileTrainingSet();
+		HelpPathBK.printPaths(pathTrainSets);
+		
+		String[] pathTestSets;
+		pathTestSets=HelpPathBK.createPathFileTestSet();
+		HelpPathBK.printPaths(pathTestSets);
 		
 		logger.log(Level.INFO ,"FINE ClassToExecuteBK!!");
 			
